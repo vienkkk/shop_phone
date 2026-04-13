@@ -50,3 +50,29 @@ CREATE TABLE order_details (
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+INSERT INTO categories (name) VALUES
+                                  ('iPhone'),
+                                  ('Samsung'),
+                                  ('Xiaomi'),
+                                  ('Oppo');
+
+INSERT INTO products (name, category_id, price, stock, color, capacity, description, is_flash_sale, sale_percent) VALUES
+                                                                                                                      ('iPhone 15 Pro Max', 1, 30000000, 10, 'Titan Tự Nhiên', '256GB', 'Chip A17 Pro mạnh mẽ nhất', 1, 5),
+                                                                                                                      ('iPhone 13', 1, 13500000, 20, 'Blue', '128GB', 'Máy quốc tế chính hãng', 0, 0),
+                                                                                                                      ('Samsung Galaxy S24 Ultra', 2, 28000000, 15, 'Xám Titanium', '512GB', 'Bút S-Pen thần thánh, AI đỉnh cao', 1, 10),
+                                                                                                                      ('Samsung Galaxy A54', 2, 8500000, 30, 'Xanh Trendy', '128GB', 'Tầm trung đáng mua nhất', 0, 0),
+                                                                                                                      ('Xiaomi 14', 3, 18900000, 5, 'Đen', '256GB', 'Ống kính Leica chuyên nghiệp', 0, 0),
+                                                                                                                      ('Oppo Reno11 F', 4, 9000000, 12, 'Tím', '128GB', 'Chuyên gia chân dung', 0, 0);
+
+INSERT INTO users (username, password, role, full_name, email, phone, address) VALUES
+                                                                                   ('admin_shop', 'hashed_password_123', 'ADMIN', 'Quản Trị Viên', 'admin@phonestore.com', '0912345678', '123 Đường ABC, Hà Nội'),
+                                                                                   ('khachhang01', 'password_abc', 'CUSTOMER', 'Nguyễn Văn A', 'vana@gmail.com', '0988776655', '456 Đường XYZ, TP.HCM'),
+                                                                                   ('khachhang02', 'password_def', 'CUSTOMER', 'Trần Thị B', 'thib@gmail.com', '0977112233', '789 Đường LMN, Đà Nẵng');
+
+INSERT INTO orders (user_id, total_amount, status) VALUES
+    (2, 43500000, 'PENDING');
+
+INSERT INTO order_details (order_id, product_id, quantity, price_at_purchase) VALUES
+                                                                                  (1, 1, 1, 30000000),
+                                                                                  (1, 2, 1, 13500000);
