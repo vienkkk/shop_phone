@@ -8,7 +8,6 @@ import java.util.List;
 
 public class CategoryDAO {
 
-    // Lấy danh sách danh mục chưa bị xóa (is_deleted = 0)
     public List<Category> findAllActive() {
         List<Category> list = new ArrayList<>();
         String sql = "SELECT * FROM categories WHERE is_deleted = 0";
@@ -22,7 +21,6 @@ public class CategoryDAO {
         return list;
     }
 
-    // Khắc phục lỗi: isNameExists
     public boolean isNameExists(String name) {
         String sql = "SELECT COUNT(*) FROM categories WHERE name = ?";
         try (Connection conn = DBConnection.openConnection();
@@ -33,7 +31,6 @@ public class CategoryDAO {
         } catch (SQLException e) { return false; }
     }
 
-    // Khắc phục lỗi: insert (cho phép thêm mới)
     public boolean insert(String name) {
         String sql = "INSERT INTO categories (name) VALUES (?)";
         try (Connection conn = DBConnection.openConnection();
@@ -43,7 +40,6 @@ public class CategoryDAO {
         } catch (SQLException e) { return false; }
     }
 
-    // Khắc phục lỗi: softDelete (Cập nhật trạng thái thay vì xóa thật)
     public boolean softDelete(int id) {
         String sql = "UPDATE categories SET is_deleted = 1 WHERE id = ?";
         try (Connection conn = DBConnection.openConnection();

@@ -8,16 +8,15 @@ public class AuthService {
     private UserDAO userDAO = new UserDAO();
 
     public boolean register(User user) {
-        // Mã hóa mật khẩu trước khi lưu
         user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
-        user.setRole("CUSTOMER"); // Mặc định là Customer
+        user.setRole("CUSTOMER");
         return userDAO.insert(user);
     }
 
     public User login(String username, String password) {
         User user = userDAO.findByUsername(username);
         if (user != null && PasswordUtil.checkPassword(password, user.getPassword())) {
-            return user; // Đăng nhập thành công
+            return user;
         }
         return null;
     }

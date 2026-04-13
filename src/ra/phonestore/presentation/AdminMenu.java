@@ -33,7 +33,6 @@ public class AdminMenu {
         }
     }
 
-    // ================= QUẢN LÝ DANH MỤC =================
     private void categoryManager() {
         while (true) {
             System.out.println("\n--- QUẢN LÝ DANH MỤC ---");
@@ -99,8 +98,6 @@ public class AdminMenu {
             if (categoryDAO.softDelete(id)) System.out.println("Đã xóa!");
         }
     }
-
-    // ================= QUẢN LÝ SẢN PHẨM =================
     private void productManager() {
         int page = 0;
         int size = 5;
@@ -124,6 +121,7 @@ public class AdminMenu {
         }
     }
 
+
     private void showAllProducts(int limit, int offset, String dir) {
         List<Product> list = productDAO.findAll(limit, offset, "price", dir);
         System.out.println("\n----------------------------------------------------------------------------------");
@@ -136,7 +134,8 @@ public class AdminMenu {
 
     private void addProduct() {
         Product p = new Product();
-        System.out.print("Tên sản phẩm: "); p.setName(sc.nextLine());
+        System.out.print("Tên sản phẩm: "); String name = sc.nextLine();
+        if (!Validator.requireNotEmpty(name, "Tên sản phẩm")) return;
         System.out.print("ID Danh mục: "); p.setCategoryId(Integer.parseInt(sc.nextLine()));
         System.out.print("Dung lượng: "); p.setCapacity(sc.nextLine());
         System.out.print("Màu sắc: "); p.setColor(sc.nextLine());

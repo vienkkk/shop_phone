@@ -21,7 +21,6 @@ public class User {
         this.phone = phone;
     }
 
-    // Getters and Setters (Bắt buộc phải có để hết lỗi "Cannot resolve method")
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

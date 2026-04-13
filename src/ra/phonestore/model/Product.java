@@ -8,12 +8,9 @@ public class Product {
     private int stock;
     private String color;
     private String capacity;
-    private String description; // 1. Khai báo biến này để hết lỗi "Cannot resolve symbol"
+    private String description;
 
-    // Constructor không tham số (Bắt buộc phải có)
     public Product() {}
-
-    // Constructor đầy đủ tham số
     public Product(int id, String name, int categoryId, double price, int stock, String color, String capacity, String description) {
         this.id = id;
         this.name = name;
@@ -25,9 +22,6 @@ public class Product {
         this.description = description;
     }
 
-    // --- GETTERS AND SETTERS ---
-
-    // 2. Bổ sung getDescription và setDescription để hết lỗi "Cannot resolve method"
     public String getDescription() {
         return description;
     }

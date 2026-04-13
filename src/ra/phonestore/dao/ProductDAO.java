@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ProductDAO {
 
-    // Khắc phục lỗi: findAll (Hỗ trợ phân trang và sắp xếp)
     public List<Product> findAll(int limit, int offset, String sortField, String sortDir) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products ORDER BY " + sortField + " " + sortDir + " LIMIT ? OFFSET ?";
@@ -23,8 +22,28 @@ public class ProductDAO {
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
+    public List<Product> findAvailable() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE stock > 0";
+        try (Connection conn = DBConnection.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setCategoryId(rs.getInt("category_id"));
+                p.setPrice(rs.getDouble("price"));
+                p.setStock(rs.getInt("stock"));
+                p.setColor(rs.getString("color"));
+                p.setCapacity(rs.getString("capacity"));
+                p.setDescription(rs.getString("description"));
+                list.add(p);
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return list;
+    }
 
-    // Khắc phục lỗi: insert
     public boolean insert(Product p) {
         String sql = "INSERT INTO products (name, category_id, price, stock, color, capacity, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.openConnection();
@@ -40,7 +59,6 @@ public class ProductDAO {
         } catch (SQLException e) { e.printStackTrace(); return false; }
     }
 
-    // Khắc phục lỗi: searchByName (Tìm kiếm tương đối)
     public List<Product> searchByName(String keyword) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products WHERE name LIKE ?";
@@ -89,7 +107,7 @@ public class ProductDAO {
         } catch (SQLException e) { e.printStackTrace(); return false; }
     }
 
-    // Helper method để tái sử dụng việc đọc dữ liệu từ ResultSet
+
     private Product mapResultSetToProduct(ResultSet rs) throws SQLException {
         Product p = new Product();
         p.setId(rs.getInt("id"));

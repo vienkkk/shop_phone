@@ -30,11 +30,26 @@ public class AuthMenu {
 
     private void register() {
         User user = new User();
-        System.out.print("Nhập Fullname: "); user.setFullName(sc.nextLine());
-        System.out.print("Nhập Username: "); user.setUsername(sc.nextLine());
-        System.out.print("Nhập Email: "); user.setEmail(sc.nextLine());
-        System.out.print("Nhập Password: "); user.setPassword(sc.nextLine());
-        System.out.print("Nhập Phone: "); user.setPhone(sc.nextLine());
+        System.out.print("Nhập Fullname: "); String fullName = sc.nextLine();
+        if (!Validator.requireNotEmpty(fullName, "Fullname")) return;
+
+        System.out.print("Nhập Username: "); String username = sc.nextLine();
+        if (!Validator.requireNotEmpty(username, "Username")) return;
+
+        System.out.print("Nhập Email: "); String email = sc.nextLine();
+        if (!Validator.requireValidEmail(email)) return;
+
+        System.out.print("Nhập Password: "); String pass = sc.nextLine();
+        if (!Validator.requireNotEmpty(pass, "Password")) return;
+
+        System.out.print("Nhập Phone: "); String phone = sc.nextLine();
+        if (!Validator.requireValidPhone(phone)) return;
+
+        user.setFullName(fullName);
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(pass);
+        user.setPhone(phone);
 
         if (authService.register(user)) System.out.println("Đăng ký thành công!");
         else System.out.println("Đăng ký thất bại!");
